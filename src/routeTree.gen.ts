@@ -15,7 +15,11 @@ import { Route as TransferRouteImport } from './routes/transfer'
 import { Route as YourDetailsRouteImport } from './routes/your-details'
 import { Route as PeopleIndexRouteImport } from './routes/people.index'
 import { Route as PeopleAddRouteImport } from './routes/people.add'
+import { Route as PeopleIdIndexRouteImport } from './routes/people.$id.index'
 import { Route as PeopleIdEditRouteImport } from './routes/people.$id.edit'
+import { Route as PeopleIdInvitationPreviewRouteImport } from './routes/people.$id.invitation-preview'
+import { Route as PeopleIdInviteRouteImport } from './routes/people.$id.invite'
+import { Route as PeopleIdRemoveRouteImport } from './routes/people.$id.remove'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -47,9 +51,30 @@ const PeopleAddRoute = PeopleAddRouteImport.update({
   path: '/people/add',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PeopleIdIndexRoute = PeopleIdIndexRouteImport.update({
+  id: '/people/$id/',
+  path: '/people/$id/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PeopleIdEditRoute = PeopleIdEditRouteImport.update({
   id: '/people/$id/edit',
   path: '/people/$id/edit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PeopleIdInvitationPreviewRoute =
+  PeopleIdInvitationPreviewRouteImport.update({
+    id: '/people/$id/invitation-preview',
+    path: '/people/$id/invitation-preview',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PeopleIdInviteRoute = PeopleIdInviteRouteImport.update({
+  id: '/people/$id/invite',
+  path: '/people/$id/invite',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PeopleIdRemoveRoute = PeopleIdRemoveRouteImport.update({
+  id: '/people/$id/remove',
+  path: '/people/$id/remove',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -61,6 +86,10 @@ export interface FileRoutesByFullPath {
   '/people/add': typeof PeopleAddRoute
   '/people/': typeof PeopleIndexRoute
   '/people/$id/edit': typeof PeopleIdEditRoute
+  '/people/$id/invitation-preview': typeof PeopleIdInvitationPreviewRoute
+  '/people/$id/invite': typeof PeopleIdInviteRoute
+  '/people/$id/remove': typeof PeopleIdRemoveRoute
+  '/people/$id/': typeof PeopleIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +99,10 @@ export interface FileRoutesByTo {
   '/people/add': typeof PeopleAddRoute
   '/people': typeof PeopleIndexRoute
   '/people/$id/edit': typeof PeopleIdEditRoute
+  '/people/$id/invitation-preview': typeof PeopleIdInvitationPreviewRoute
+  '/people/$id/invite': typeof PeopleIdInviteRoute
+  '/people/$id/remove': typeof PeopleIdRemoveRoute
+  '/people/$id': typeof PeopleIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +113,10 @@ export interface FileRoutesById {
   '/people/add': typeof PeopleAddRoute
   '/people/': typeof PeopleIndexRoute
   '/people/$id/edit': typeof PeopleIdEditRoute
+  '/people/$id/invitation-preview': typeof PeopleIdInvitationPreviewRoute
+  '/people/$id/invite': typeof PeopleIdInviteRoute
+  '/people/$id/remove': typeof PeopleIdRemoveRoute
+  '/people/$id/': typeof PeopleIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +128,10 @@ export interface FileRouteTypes {
     | '/people/add'
     | '/people/'
     | '/people/$id/edit'
+    | '/people/$id/invitation-preview'
+    | '/people/$id/invite'
+    | '/people/$id/remove'
+    | '/people/$id/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +141,10 @@ export interface FileRouteTypes {
     | '/people/add'
     | '/people'
     | '/people/$id/edit'
+    | '/people/$id/invitation-preview'
+    | '/people/$id/invite'
+    | '/people/$id/remove'
+    | '/people/$id'
   id:
     | '__root__'
     | '/'
@@ -109,6 +154,10 @@ export interface FileRouteTypes {
     | '/people/add'
     | '/people/'
     | '/people/$id/edit'
+    | '/people/$id/invitation-preview'
+    | '/people/$id/invite'
+    | '/people/$id/remove'
+    | '/people/$id/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -119,6 +168,10 @@ export interface RootRouteChildren {
   PeopleAddRoute: typeof PeopleAddRoute
   PeopleIndexRoute: typeof PeopleIndexRoute
   PeopleIdEditRoute: typeof PeopleIdEditRoute
+  PeopleIdInvitationPreviewRoute: typeof PeopleIdInvitationPreviewRoute
+  PeopleIdInviteRoute: typeof PeopleIdInviteRoute
+  PeopleIdRemoveRoute: typeof PeopleIdRemoveRoute
+  PeopleIdIndexRoute: typeof PeopleIdIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -165,11 +218,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PeopleAddRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/people/$id/': {
+      id: '/people/$id/'
+      path: '/people/$id'
+      fullPath: '/people/$id/'
+      preLoaderRoute: typeof PeopleIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/people/$id/edit': {
       id: '/people/$id/edit'
       path: '/people/$id/edit'
       fullPath: '/people/$id/edit'
       preLoaderRoute: typeof PeopleIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/people/$id/invitation-preview': {
+      id: '/people/$id/invitation-preview'
+      path: '/people/$id/invitation-preview'
+      fullPath: '/people/$id/invitation-preview'
+      preLoaderRoute: typeof PeopleIdInvitationPreviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/people/$id/invite': {
+      id: '/people/$id/invite'
+      path: '/people/$id/invite'
+      fullPath: '/people/$id/invite'
+      preLoaderRoute: typeof PeopleIdInviteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/people/$id/remove': {
+      id: '/people/$id/remove'
+      path: '/people/$id/remove'
+      fullPath: '/people/$id/remove'
+      preLoaderRoute: typeof PeopleIdRemoveRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -183,6 +264,10 @@ const rootRouteChildren: RootRouteChildren = {
   PeopleAddRoute: PeopleAddRoute,
   PeopleIndexRoute: PeopleIndexRoute,
   PeopleIdEditRoute: PeopleIdEditRoute,
+  PeopleIdInvitationPreviewRoute: PeopleIdInvitationPreviewRoute,
+  PeopleIdInviteRoute: PeopleIdInviteRoute,
+  PeopleIdRemoveRoute: PeopleIdRemoveRoute,
+  PeopleIdIndexRoute: PeopleIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
