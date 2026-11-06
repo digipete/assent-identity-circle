@@ -46,7 +46,7 @@ export function ErrorSummary({ errors }: { errors: FieldError[] }) {
   );
 }
 
-function ErrorMessage({ id, message }: { id: string; message?: string }) {
+function ErrorMessage({ id, message }: { id: string; message?: string | undefined }) {
   if (!message) return null;
   return (
     <p id={`${id}-error`} className="govuk-error-message">
@@ -58,14 +58,14 @@ function ErrorMessage({ id, message }: { id: string; message?: string }) {
 export function TextInput(props: {
   id: string;
   label: string;
-  hint?: string;
+  hint?: string | undefined;
   value: string;
   onChange: (v: string) => void;
-  error?: string;
-  widthClass?: string;
-  type?: string;
-  autoComplete?: string;
-  spellCheck?: boolean;
+  error?: string | undefined;
+  widthClass?: string | undefined;
+  type?: string | undefined;
+  autoComplete?: string | undefined;
+  spellCheck?: boolean | undefined;
 }) {
   const { id, label, hint, value, onChange, error, widthClass, type = "text", autoComplete, spellCheck } = props;
   const describedBy = [hint ? `${id}-hint` : "", error ? `${id}-error` : ""].filter(Boolean).join(" ") || undefined;
@@ -98,21 +98,21 @@ export function TextInput(props: {
 export interface Option {
   value: string;
   label: string;
-  hint?: string;
+  hint?: string | undefined;
 }
 
 export function Radios(props: {
   name: string;
   legend: ReactNode;
-  legendClass?: string;
-  isPageHeading?: boolean;
-  hint?: ReactNode;
+  legendClass?: string | undefined;
+  isPageHeading?: boolean | undefined;
+  hint?: ReactNode | undefined;
   options: Option[];
   value: string;
   onChange: (v: string) => void;
-  error?: string;
-  inline?: boolean;
-  children?: ReactNode;
+  error?: string | undefined;
+  inline?: boolean | undefined;
+  children?: ReactNode | undefined;
 }) {
   const { name, legend, legendClass = "govuk-fieldset__legend--m", isPageHeading, hint, options, value, onChange, error, inline, children } = props;
   const describedBy = [hint ? `${name}-hint` : "", error ? `${name}-error` : ""].filter(Boolean).join(" ") || undefined;
@@ -164,11 +164,11 @@ export function Radios(props: {
 export function Checkboxes(props: {
   name: string;
   legend: ReactNode;
-  hint?: ReactNode;
+  hint?: ReactNode | undefined;
   options: Option[];
   values: string[];
   onChange: (v: string[]) => void;
-  error?: string;
+  error?: string | undefined;
 }) {
   const { name, legend, hint, options, values, onChange, error } = props;
   const describedBy = [hint ? `${name}-hint` : "", error ? `${name}-error` : ""].filter(Boolean).join(" ") || undefined;
@@ -218,10 +218,10 @@ export function StatusTag({ status }: { status: VerificationStatus }) {
 export interface SummaryRow {
   key: string;
   value: ReactNode;
-  action?: ReactNode;
+  action?: ReactNode | undefined;
 }
 
-export function SummaryList({ rows, noBorder }: { rows: SummaryRow[]; noBorder?: boolean }) {
+export function SummaryList({ rows, noBorder }: { rows: SummaryRow[]; noBorder?: boolean | undefined }) {
   return (
     <dl className={`govuk-summary-list${noBorder ? " govuk-summary-list--no-border" : ""}`}>
       {rows.map((r) => (
@@ -235,7 +235,7 @@ export function SummaryList({ rows, noBorder }: { rows: SummaryRow[]; noBorder?:
   );
 }
 
-export function NotificationBanner({ success, title, children }: { success?: boolean; title?: string; children: ReactNode }) {
+export function NotificationBanner({ success, title, children }: { success?: boolean | undefined; title?: string | undefined; children: ReactNode }) {
   return (
     <div
       className={`govuk-notification-banner${success ? " govuk-notification-banner--success" : ""}`}
@@ -277,7 +277,7 @@ export function Details({ summary, children }: { summary: string; children: Reac
   );
 }
 
-export function BackLink(props: { to: LinkProps["to"]; params?: Record<string, string>; children?: ReactNode }) {
+export function BackLink(props: { to: LinkProps["to"]; params?: Record<string, string> | undefined; children?: ReactNode | undefined }) {
   return (
     <Link to={props.to} params={props.params as never} className="govuk-back-link">
       {props.children ?? "Back"}
@@ -286,7 +286,7 @@ export function BackLink(props: { to: LinkProps["to"]; params?: Record<string, s
 }
 
 /** Wraps a page's main content in the standard GOV.UK grid. */
-export function Main({ children, back, wide }: { children: ReactNode; back?: ReactNode; wide?: boolean }) {
+export function Main({ children, back, wide }: { children: ReactNode; back?: ReactNode | undefined; wide?: boolean | undefined }) {
   return (
     <>
       {back}
