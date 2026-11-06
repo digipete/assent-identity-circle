@@ -12,7 +12,6 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
-import govukCss from "govuk-frontend/dist/govuk/govuk-frontend.min.css?url";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
@@ -67,7 +66,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "robots", content: "noindex" },
     ],
     links: [
-      { rel: "stylesheet", href: govukCss },
+      { rel: "stylesheet", href: "/govuk/govuk-frontend.min.css" },
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],

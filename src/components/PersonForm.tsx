@@ -10,6 +10,7 @@ interface Props {
   existing?: Participant;
   coordinatorTaken: boolean;
   submitLabel: string;
+  heading: string;
   onSubmit: (input: PersonInput) => void;
 }
 
@@ -20,7 +21,7 @@ const ROLE_HINTS: Partial<Record<Role, string>> = {
   attorney: "Legally authorised to act for someone else involved",
 };
 
-export function PersonForm({ participants, existing, coordinatorTaken, submitLabel, onSubmit }: Props) {
+export function PersonForm({ participants, existing, coordinatorTaken, submitLabel, heading, onSubmit }: Props) {
   const [f, setF] = useState({
     firstName: existing?.firstName ?? "",
     lastName: existing?.lastName ?? "",
@@ -68,6 +69,7 @@ export function PersonForm({ participants, existing, coordinatorTaken, submitLab
   return (
     <form onSubmit={submit} noValidate>
       <ErrorSummary errors={errors} />
+      <h1 className="govuk-heading-l">{heading}</h1>
       {duplicate && (
         <div className="govuk-inset-text">
           <Link to="/people/$id/edit" params={{ id: duplicate.id }} className="govuk-link">

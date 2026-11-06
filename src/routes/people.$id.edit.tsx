@@ -19,12 +19,12 @@ function EditPerson() {
   if (!s.case || !p) return <Navigate to="/people" />;
   return (
     <Main back={<BackLink to="/people/$id" params={{ id }} />}>
-      <h1 className="govuk-heading-l">Change details for {fullName(p)}</h1>
       <PersonForm
         key={p.id}
         participants={s.participants}
         existing={p}
         coordinatorTaken={!!s.case.coordinatorParticipantId}
+        heading={`Change details for ${fullName(p)}`}
         submitLabel="Save changes"
         onSubmit={(input) => {
           const reset = updateParticipant(id, input);
