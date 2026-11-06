@@ -13,6 +13,9 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as OtherWaysRouteImport } from './routes/other-ways'
 import { Route as TransferRouteImport } from './routes/transfer'
 import { Route as YourDetailsRouteImport } from './routes/your-details'
+import { Route as PeopleIndexRouteImport } from './routes/people.index'
+import { Route as PeopleAddRouteImport } from './routes/people.add'
+import { Route as PeopleIdEditRouteImport } from './routes/people.$id.edit'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,18 +37,39 @@ const YourDetailsRoute = YourDetailsRouteImport.update({
   path: '/your-details',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PeopleIndexRoute = PeopleIndexRouteImport.update({
+  id: '/people/',
+  path: '/people/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PeopleAddRoute = PeopleAddRouteImport.update({
+  id: '/people/add',
+  path: '/people/add',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PeopleIdEditRoute = PeopleIdEditRouteImport.update({
+  id: '/people/$id/edit',
+  path: '/people/$id/edit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/other-ways': typeof OtherWaysRoute
   '/transfer': typeof TransferRoute
   '/your-details': typeof YourDetailsRoute
+  '/people/add': typeof PeopleAddRoute
+  '/people/': typeof PeopleIndexRoute
+  '/people/$id/edit': typeof PeopleIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/other-ways': typeof OtherWaysRoute
   '/transfer': typeof TransferRoute
   '/your-details': typeof YourDetailsRoute
+  '/people/add': typeof PeopleAddRoute
+  '/people': typeof PeopleIndexRoute
+  '/people/$id/edit': typeof PeopleIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +77,38 @@ export interface FileRoutesById {
   '/other-ways': typeof OtherWaysRoute
   '/transfer': typeof TransferRoute
   '/your-details': typeof YourDetailsRoute
+  '/people/add': typeof PeopleAddRoute
+  '/people/': typeof PeopleIndexRoute
+  '/people/$id/edit': typeof PeopleIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/other-ways' | '/transfer' | '/your-details'
+  fullPaths:
+    | '/'
+    | '/other-ways'
+    | '/transfer'
+    | '/your-details'
+    | '/people/add'
+    | '/people/'
+    | '/people/$id/edit'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/other-ways' | '/transfer' | '/your-details'
-  id: '__root__' | '/' | '/other-ways' | '/transfer' | '/your-details'
+  to:
+    | '/'
+    | '/other-ways'
+    | '/transfer'
+    | '/your-details'
+    | '/people/add'
+    | '/people'
+    | '/people/$id/edit'
+  id:
+    | '__root__'
+    | '/'
+    | '/other-ways'
+    | '/transfer'
+    | '/your-details'
+    | '/people/add'
+    | '/people/'
+    | '/people/$id/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +116,9 @@ export interface RootRouteChildren {
   OtherWaysRoute: typeof OtherWaysRoute
   TransferRoute: typeof TransferRoute
   YourDetailsRoute: typeof YourDetailsRoute
+  PeopleAddRoute: typeof PeopleAddRoute
+  PeopleIndexRoute: typeof PeopleIndexRoute
+  PeopleIdEditRoute: typeof PeopleIdEditRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +151,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof YourDetailsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/people/': {
+      id: '/people/'
+      path: '/people'
+      fullPath: '/people/'
+      preLoaderRoute: typeof PeopleIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/people/add': {
+      id: '/people/add'
+      path: '/people/add'
+      fullPath: '/people/add'
+      preLoaderRoute: typeof PeopleAddRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/people/$id/edit': {
+      id: '/people/$id/edit'
+      path: '/people/$id/edit'
+      fullPath: '/people/$id/edit'
+      preLoaderRoute: typeof PeopleIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +180,9 @@ const rootRouteChildren: RootRouteChildren = {
   OtherWaysRoute: OtherWaysRoute,
   TransferRoute: TransferRoute,
   YourDetailsRoute: YourDetailsRoute,
+  PeopleAddRoute: PeopleAddRoute,
+  PeopleIndexRoute: PeopleIndexRoute,
+  PeopleIdEditRoute: PeopleIdEditRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
