@@ -2,36 +2,31 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
+  ClientOnly,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
   type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
+import govukCss from "govuk-frontend/dist/govuk/govuk-frontend.min.css?url";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
-        </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Go home
-          </Link>
-        </div>
-      </div>
-    </div>
+    <main className="govuk-main-wrapper" id="main-content">
+      <h1 className="govuk-heading-l">Page not found</h1>
+      <p className="govuk-body">If you typed the web address, check it is correct.</p>
+      <p className="govuk-body">
+        <Link to="/" className="govuk-link">
+          Go to the start page
+        </Link>
+      </p>
+    </main>
   );
 }
 
@@ -41,35 +36,25 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
   useEffect(() => {
     reportLovableError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
-
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
-        </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
-          <button
-            onClick={() => {
-              router.invalidate();
-              reset();
-            }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Try again
-          </button>
-          <a
-            href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
-          >
-            Go home
-          </a>
-        </div>
+    <main className="govuk-main-wrapper" id="main-content">
+      <h1 className="govuk-heading-l">Sorry, there is a problem with the service</h1>
+      <p className="govuk-body">Try again, or go back to the start page.</p>
+      <div className="govuk-button-group">
+        <button
+          className="govuk-button"
+          onClick={() => {
+            router.invalidate();
+            reset();
+          }}
+        >
+          Try again
+        </button>
+        <a href="/" className="govuk-link">
+          Go to the start page
+        </a>
       </div>
-    </div>
+    </main>
   );
 }
 
@@ -77,21 +62,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
+      { name: "theme-color", content: "#0b0c0c" },
+      { name: "robots", content: "noindex" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: govukCss },
+      { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
@@ -103,11 +80,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="govuk-template">
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className="govuk-template__body govuk-frontend-supported">
         {children}
         <Scripts />
       </body>
@@ -117,11 +94,79 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isInvitee = pathname.startsWith("/invite/");
+  const isResearch = pathname.startsWith("/research");
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <a href="#main-content" className="govuk-skip-link">
+        Skip to main content
+      </a>
+      <header className="govuk-header" role="banner">
+        <div className="govuk-header__container govuk-width-container">
+          <div className="govuk-header__logo">
+            <span className="govuk-header__link govuk-header__link--homepage app-header-org">HM Land Registry</span>
+          </div>
+        </div>
+      </header>
+      <section className="govuk-service-navigation" aria-label="Service information">
+        <div className="govuk-width-container">
+          <div className="govuk-service-navigation__container">
+            <span className="govuk-service-navigation__service-name">
+              {isInvitee ? (
+                <span className="govuk-service-navigation__text">Check identities for an Assent application</span>
+              ) : (
+                <Link to="/" className="govuk-service-navigation__link">
+                  Check identities for an Assent application
+                </Link>
+              )}
+            </span>
+          </div>
+        </div>
+      </section>
+      <div className="govuk-width-container">
+        <div className="govuk-phase-banner">
+          <p className="govuk-phase-banner__content">
+            <strong className="govuk-tag govuk-phase-banner__content__tag">Beta</strong>
+            <span className="govuk-phase-banner__text">
+              This is a research prototype. Identity checks are simulated and no real emails are sent.
+            </span>
+          </p>
+        </div>
+        {isResearch && (
+          <p className="govuk-body-s govuk-!-margin-top-2">
+            <strong>Prototype research tools</strong> – not part of the citizen journey.
+          </p>
+        )}
+        <ClientOnly fallback={<main className="govuk-main-wrapper" id="main-content"><p className="govuk-body">Loading…</p></main>}>
+          <Outlet />
+        </ClientOnly>
+      </div>
+      <footer className="govuk-footer" role="contentinfo">
+        <div className="govuk-width-container">
+          <div className="govuk-footer__meta">
+            <div className="govuk-footer__meta-item govuk-footer__meta-item--grow">
+              <h2 className="govuk-visually-hidden">Support links</h2>
+              <ul className="govuk-footer__inline-list">
+                <li className="govuk-footer__inline-list-item">
+                  <Link to="/research" className="govuk-footer__link">
+                    Prototype research tools
+                  </Link>
+                </li>
+                <li className="govuk-footer__inline-list-item">
+                  <Link to="/other-ways" className="govuk-footer__link">
+                    Other ways to prove your identity
+                  </Link>
+                </li>
+              </ul>
+              <span className="govuk-footer__licence-description">
+                Research prototype for HM Land Registry. All names, addresses and results are fictional.
+              </span>
+            </div>
+          </div>
+        </div>
+      </footer>
     </QueryClientProvider>
   );
 }
