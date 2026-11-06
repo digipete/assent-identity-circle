@@ -279,7 +279,7 @@ export function Details({ summary, children }: { summary: string; children: Reac
 
 export function BackLink(props: { to: LinkProps["to"]; params?: Record<string, string> | undefined; children?: ReactNode | undefined }) {
   return (
-    <Link {...({ to: props.to, params: props.params } as object)} className="govuk-back-link">
+    <Link {...({ to: props.to, params: props.params } as unknown as LinkProps)} className="govuk-back-link">
       {props.children ?? "Back"}
     </Link>
   );
