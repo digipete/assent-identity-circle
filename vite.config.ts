@@ -8,8 +8,8 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 // STATIC_EXPORT=1 builds a fully static single-page site (for GitHub Pages).
 // BASE_PATH sets the sub-folder the site is served from, e.g. "/my-repo/".
-const isStatic = process.env.STATIC_EXPORT === "1";
-const base = process.env.BASE_PATH || "/";
+const isStatic = process.env["STATIC_EXPORT"] === "1";
+const base = process.env["BASE_PATH"] || "/";
 
 export default defineConfig({
   tanstackStart: isStatic
