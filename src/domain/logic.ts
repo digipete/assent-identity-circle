@@ -95,7 +95,7 @@ export function computeProgress(participants: Participant[]): Progress {
 export function progressSentence(p: Progress) {
   if (p.required === 0) return "No one has been marked as needing to prove their identity yet.";
   const noun = p.required === 1 ? "required identity check" : "required identity checks";
-  const verb = p.verified === 1 ? "is" : "are";
+  const verb = p.required === 1 ? "is" : "are";
   return `${p.verified} of ${p.required} ${noun} ${verb} complete.`;
 }
 

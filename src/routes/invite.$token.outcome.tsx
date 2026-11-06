@@ -7,7 +7,7 @@ import { pageHead } from "@/lib/meta";
 import { InvalidInvitation } from "@/components/InvalidInvitation";
 
 export const Route = createFileRoute("/invite/$token/outcome")({
-  validateSearch: (search: Record<string, unknown>) => ({ alt: typeof search.alt === "string" ? search.alt : undefined }),
+  validateSearch: (search: Record<string, unknown>) => ({ alt: typeof search["alt"] === "string" ? (search["alt"] as string) : undefined }),
   head: () => pageHead("Your identity check", "The result of your identity check."),
   component: Outcome,
 });
@@ -113,7 +113,7 @@ function Outcome() {
     declined: { title: "You chose not to continue", body: "You have not proved your identity. You can come back to this invitation, or prove your identity another way." },
     additional_verification_needed: { title: "We need more information to confirm your identity", body: "GOV.UK One Login needs more information before it can confirm your identity. You can try again or prove your identity another way." },
   };
-  const m = messages[p.verificationOutcome] ?? messages.incomplete;
+  const m = messages[p.verificationOutcome] ?? messages["incomplete"]!;
 
   return (
     <Main>
