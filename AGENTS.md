@@ -28,3 +28,9 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- GOV.UK Frontend CSS is served as a static copy from `public/govuk/` (Vite's CSS pipeline rejects its IE hacks); refresh it from `node_modules/govuk-frontend/dist` when upgrading. Tailwind is not used.
+- All prototype state lives in the browser (`src/domain/store.ts`, localStorage) and pages render inside `<ClientOnly>` to avoid hydration mismatches; no backend.
+- Identity checks go through the `IdentityVerificationProvider` interface (`src/identity/provider.ts`) so the mock can be swapped for a real One Login integration without UI changes.
+- Status and progress rules live in `src/domain/logic.ts` with tests in `logic.test.ts`.
