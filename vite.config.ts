@@ -15,7 +15,10 @@ export default defineConfig({
   tanstackStart: isStatic
     ? {
         server: { entry: "server" },
-        spa: { enabled: true, prerender: { outputPath: "/index.html", crawlLinks: false } },
+        // Every page renders in the browser, so one prerendered "/" shell serves all routes
+        // (copied to 404.html for deep links by the GitHub Pages workflow).
+        pages: [{ path: "/" }],
+        prerender: { enabled: true, autoStaticPathsDiscovery: false },
       }
     : {
         // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
