@@ -6,10 +6,21 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
+// STATIC_EXPORT=1 builds a fully static single-page site (for GitHub Pages).
+// BASE_PATH sets the sub-folder the site is served from, e.g. "/my-repo/".
+const isStatic = process.env.STATIC_EXPORT === "1";
+const base = process.env.BASE_PATH || "/";
+
 export default defineConfig({
-  tanstackStart: {
-    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
-    server: { entry: "server" },
-  },
+  tanstackStart: isStatic
+    ? {
+        server: { entry: "server" },
+        spa: { enabled: true, prerender: { outputPath: "/index.html", crawlLinks: false } },
+      }
+    : {
+        // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
+        // nitro/vite builds from this
+        server: { entry: "server" },
+      },
+  vite: isStatic ? { base } : {},
 });
