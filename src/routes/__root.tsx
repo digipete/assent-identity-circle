@@ -13,7 +13,7 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
+import { reportError } from "../lib/error-reporting";
 
 function NotFoundComponent() {
   return (
@@ -33,7 +33,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
+    reportError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
   return (
     <main className="govuk-main-wrapper" id="main-content">
@@ -49,7 +49,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
         >
           Try again
         </button>
-        <a href="/" className="govuk-link">
+        <a href={import.meta.env.BASE_URL} className="govuk-link">
           Go to the start page
         </a>
       </div>
@@ -66,9 +66,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "robots", content: "noindex" },
     ],
     links: [
-      { rel: "stylesheet", href: "/govuk/govuk-frontend.min.css" },
+      { rel: "stylesheet", href: `${import.meta.env.BASE_URL}govuk/govuk-frontend.min.css` },
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: `${import.meta.env.BASE_URL}favicon.ico`, type: "image/x-icon" },
     ],
   }),
   shellComponent: RootShell,
