@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as OtherWaysRouteImport } from './routes/other-ways'
+import { Route as TransferRouteImport } from './routes/transfer'
+import { Route as YourDetailsRouteImport } from './routes/your-details'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OtherWaysRoute = OtherWaysRouteImport.update({
+  id: '/other-ways',
+  path: '/other-ways',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TransferRoute = TransferRouteImport.update({
+  id: '/transfer',
+  path: '/transfer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const YourDetailsRoute = YourDetailsRouteImport.update({
+  id: '/your-details',
+  path: '/your-details',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/other-ways': typeof OtherWaysRoute
+  '/transfer': typeof TransferRoute
+  '/your-details': typeof YourDetailsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/other-ways': typeof OtherWaysRoute
+  '/transfer': typeof TransferRoute
+  '/your-details': typeof YourDetailsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/other-ways': typeof OtherWaysRoute
+  '/transfer': typeof TransferRoute
+  '/your-details': typeof YourDetailsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/other-ways' | '/transfer' | '/your-details'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/other-ways' | '/transfer' | '/your-details'
+  id: '__root__' | '/' | '/other-ways' | '/transfer' | '/your-details'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  OtherWaysRoute: typeof OtherWaysRoute
+  TransferRoute: typeof TransferRoute
+  YourDetailsRoute: typeof YourDetailsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/other-ways': {
+      id: '/other-ways'
+      path: '/other-ways'
+      fullPath: '/other-ways'
+      preLoaderRoute: typeof OtherWaysRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transfer': {
+      id: '/transfer'
+      path: '/transfer'
+      fullPath: '/transfer'
+      preLoaderRoute: typeof TransferRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/your-details': {
+      id: '/your-details'
+      path: '/your-details'
+      fullPath: '/your-details'
+      preLoaderRoute: typeof YourDetailsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  OtherWaysRoute: OtherWaysRoute,
+  TransferRoute: TransferRoute,
+  YourDetailsRoute: YourDetailsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
