@@ -4,7 +4,7 @@ import { chooseAlternativeRoute, track } from "@/domain/actions";
 import { formatDate } from "@/domain/logic";
 import { usePrototype } from "@/domain/store";
 import { pageHead } from "@/lib/meta";
-import { InvalidInvitation } from "./invite.$token.index";
+import { InvalidInvitation } from "@/components/InvalidInvitation";
 
 export const Route = createFileRoute("/invite/$token/outcome")({
   validateSearch: (search: Record<string, unknown>) => ({ alt: typeof search.alt === "string" ? search.alt : undefined }),

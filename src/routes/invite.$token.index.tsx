@@ -5,21 +5,12 @@ import { markInvitationOpened } from "@/domain/actions";
 import { fullName, rolesText } from "@/domain/logic";
 import { usePrototype } from "@/domain/store";
 import { pageHead } from "@/lib/meta";
+import { InvalidInvitation } from "@/components/InvalidInvitation";
 
 export const Route = createFileRoute("/invite/$token/")({
   head: () => pageHead("You've been invited to prove your identity", "Prove your identity for a property transfer using GOV.UK One Login."),
   component: InviteLanding,
 });
-
-export function InvalidInvitation() {
-  return (
-    <Main>
-      <h1 className="govuk-heading-l">This invitation link is not valid</h1>
-      <p className="govuk-body">The link may have expired, been replaced by a newer invitation, or been typed incorrectly.</p>
-      <p className="govuk-body">Ask the person who invited you to send a new invitation.</p>
-    </Main>
-  );
-}
 
 function InviteLanding() {
   const { token } = Route.useParams();

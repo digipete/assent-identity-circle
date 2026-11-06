@@ -6,7 +6,7 @@ import { usePrototype } from "@/domain/store";
 import type { DocumentType } from "@/domain/types";
 import type { MockScenarioOutcome } from "@/identity/provider";
 import { pageHead } from "@/lib/meta";
-import { InvalidInvitation } from "./invite.$token.index";
+import { InvalidInvitation } from "@/components/InvalidInvitation";
 
 export const Route = createFileRoute("/invite/$token/one-login")({
   head: () => pageHead("GOV.UK One Login (simulated)", "Simulated GOV.UK One Login identity check for research."),

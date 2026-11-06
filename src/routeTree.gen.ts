@@ -11,10 +11,15 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as OtherWaysRouteImport } from './routes/other-ways'
+import { Route as ResearchRouteImport } from './routes/research'
+import { Route as SummaryRouteImport } from './routes/summary'
 import { Route as TransferRouteImport } from './routes/transfer'
 import { Route as YourDetailsRouteImport } from './routes/your-details'
 import { Route as PeopleIndexRouteImport } from './routes/people.index'
 import { Route as PeopleAddRouteImport } from './routes/people.add'
+import { Route as InviteTokenIndexRouteImport } from './routes/invite.$token.index'
+import { Route as InviteTokenOneLoginRouteImport } from './routes/invite.$token.one-login'
+import { Route as InviteTokenOutcomeRouteImport } from './routes/invite.$token.outcome'
 import { Route as PeopleIdIndexRouteImport } from './routes/people.$id.index'
 import { Route as PeopleIdEditRouteImport } from './routes/people.$id.edit'
 import { Route as PeopleIdInvitationPreviewRouteImport } from './routes/people.$id.invitation-preview'
@@ -29,6 +34,16 @@ const IndexRoute = IndexRouteImport.update({
 const OtherWaysRoute = OtherWaysRouteImport.update({
   id: '/other-ways',
   path: '/other-ways',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResearchRoute = ResearchRouteImport.update({
+  id: '/research',
+  path: '/research',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SummaryRoute = SummaryRouteImport.update({
+  id: '/summary',
+  path: '/summary',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TransferRoute = TransferRouteImport.update({
@@ -49,6 +64,21 @@ const PeopleIndexRoute = PeopleIndexRouteImport.update({
 const PeopleAddRoute = PeopleAddRouteImport.update({
   id: '/people/add',
   path: '/people/add',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InviteTokenIndexRoute = InviteTokenIndexRouteImport.update({
+  id: '/invite/$token/',
+  path: '/invite/$token/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InviteTokenOneLoginRoute = InviteTokenOneLoginRouteImport.update({
+  id: '/invite/$token/one-login',
+  path: '/invite/$token/one-login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InviteTokenOutcomeRoute = InviteTokenOutcomeRouteImport.update({
+  id: '/invite/$token/outcome',
+  path: '/invite/$token/outcome',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PeopleIdIndexRoute = PeopleIdIndexRouteImport.update({
@@ -81,41 +111,56 @@ const PeopleIdRemoveRoute = PeopleIdRemoveRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/other-ways': typeof OtherWaysRoute
+  '/research': typeof ResearchRoute
+  '/summary': typeof SummaryRoute
   '/transfer': typeof TransferRoute
   '/your-details': typeof YourDetailsRoute
   '/people/add': typeof PeopleAddRoute
   '/people/': typeof PeopleIndexRoute
+  '/invite/$token/one-login': typeof InviteTokenOneLoginRoute
+  '/invite/$token/outcome': typeof InviteTokenOutcomeRoute
   '/people/$id/edit': typeof PeopleIdEditRoute
   '/people/$id/invitation-preview': typeof PeopleIdInvitationPreviewRoute
   '/people/$id/invite': typeof PeopleIdInviteRoute
   '/people/$id/remove': typeof PeopleIdRemoveRoute
+  '/invite/$token/': typeof InviteTokenIndexRoute
   '/people/$id/': typeof PeopleIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/other-ways': typeof OtherWaysRoute
+  '/research': typeof ResearchRoute
+  '/summary': typeof SummaryRoute
   '/transfer': typeof TransferRoute
   '/your-details': typeof YourDetailsRoute
   '/people/add': typeof PeopleAddRoute
   '/people': typeof PeopleIndexRoute
+  '/invite/$token/one-login': typeof InviteTokenOneLoginRoute
+  '/invite/$token/outcome': typeof InviteTokenOutcomeRoute
   '/people/$id/edit': typeof PeopleIdEditRoute
   '/people/$id/invitation-preview': typeof PeopleIdInvitationPreviewRoute
   '/people/$id/invite': typeof PeopleIdInviteRoute
   '/people/$id/remove': typeof PeopleIdRemoveRoute
+  '/invite/$token': typeof InviteTokenIndexRoute
   '/people/$id': typeof PeopleIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/other-ways': typeof OtherWaysRoute
+  '/research': typeof ResearchRoute
+  '/summary': typeof SummaryRoute
   '/transfer': typeof TransferRoute
   '/your-details': typeof YourDetailsRoute
   '/people/add': typeof PeopleAddRoute
   '/people/': typeof PeopleIndexRoute
+  '/invite/$token/one-login': typeof InviteTokenOneLoginRoute
+  '/invite/$token/outcome': typeof InviteTokenOutcomeRoute
   '/people/$id/edit': typeof PeopleIdEditRoute
   '/people/$id/invitation-preview': typeof PeopleIdInvitationPreviewRoute
   '/people/$id/invite': typeof PeopleIdInviteRoute
   '/people/$id/remove': typeof PeopleIdRemoveRoute
+  '/invite/$token/': typeof InviteTokenIndexRoute
   '/people/$id/': typeof PeopleIdIndexRoute
 }
 export interface FileRouteTypes {
@@ -123,54 +168,74 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/other-ways'
+    | '/research'
+    | '/summary'
     | '/transfer'
     | '/your-details'
     | '/people/add'
     | '/people/'
+    | '/invite/$token/one-login'
+    | '/invite/$token/outcome'
     | '/people/$id/edit'
     | '/people/$id/invitation-preview'
     | '/people/$id/invite'
     | '/people/$id/remove'
+    | '/invite/$token/'
     | '/people/$id/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/other-ways'
+    | '/research'
+    | '/summary'
     | '/transfer'
     | '/your-details'
     | '/people/add'
     | '/people'
+    | '/invite/$token/one-login'
+    | '/invite/$token/outcome'
     | '/people/$id/edit'
     | '/people/$id/invitation-preview'
     | '/people/$id/invite'
     | '/people/$id/remove'
+    | '/invite/$token'
     | '/people/$id'
   id:
     | '__root__'
     | '/'
     | '/other-ways'
+    | '/research'
+    | '/summary'
     | '/transfer'
     | '/your-details'
     | '/people/add'
     | '/people/'
+    | '/invite/$token/one-login'
+    | '/invite/$token/outcome'
     | '/people/$id/edit'
     | '/people/$id/invitation-preview'
     | '/people/$id/invite'
     | '/people/$id/remove'
+    | '/invite/$token/'
     | '/people/$id/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   OtherWaysRoute: typeof OtherWaysRoute
+  ResearchRoute: typeof ResearchRoute
+  SummaryRoute: typeof SummaryRoute
   TransferRoute: typeof TransferRoute
   YourDetailsRoute: typeof YourDetailsRoute
   PeopleAddRoute: typeof PeopleAddRoute
   PeopleIndexRoute: typeof PeopleIndexRoute
+  InviteTokenOneLoginRoute: typeof InviteTokenOneLoginRoute
+  InviteTokenOutcomeRoute: typeof InviteTokenOutcomeRoute
   PeopleIdEditRoute: typeof PeopleIdEditRoute
   PeopleIdInvitationPreviewRoute: typeof PeopleIdInvitationPreviewRoute
   PeopleIdInviteRoute: typeof PeopleIdInviteRoute
   PeopleIdRemoveRoute: typeof PeopleIdRemoveRoute
+  InviteTokenIndexRoute: typeof InviteTokenIndexRoute
   PeopleIdIndexRoute: typeof PeopleIdIndexRoute
 }
 
@@ -188,6 +253,20 @@ declare module '@tanstack/react-router' {
       path: '/other-ways'
       fullPath: '/other-ways'
       preLoaderRoute: typeof OtherWaysRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/research': {
+      id: '/research'
+      path: '/research'
+      fullPath: '/research'
+      preLoaderRoute: typeof ResearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/summary': {
+      id: '/summary'
+      path: '/summary'
+      fullPath: '/summary'
+      preLoaderRoute: typeof SummaryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/transfer': {
@@ -216,6 +295,27 @@ declare module '@tanstack/react-router' {
       path: '/people/add'
       fullPath: '/people/add'
       preLoaderRoute: typeof PeopleAddRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/invite/$token/': {
+      id: '/invite/$token/'
+      path: '/invite/$token'
+      fullPath: '/invite/$token/'
+      preLoaderRoute: typeof InviteTokenIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/invite/$token/one-login': {
+      id: '/invite/$token/one-login'
+      path: '/invite/$token/one-login'
+      fullPath: '/invite/$token/one-login'
+      preLoaderRoute: typeof InviteTokenOneLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/invite/$token/outcome': {
+      id: '/invite/$token/outcome'
+      path: '/invite/$token/outcome'
+      fullPath: '/invite/$token/outcome'
+      preLoaderRoute: typeof InviteTokenOutcomeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/people/$id/': {
@@ -259,14 +359,19 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   OtherWaysRoute: OtherWaysRoute,
+  ResearchRoute: ResearchRoute,
+  SummaryRoute: SummaryRoute,
   TransferRoute: TransferRoute,
   YourDetailsRoute: YourDetailsRoute,
   PeopleAddRoute: PeopleAddRoute,
   PeopleIndexRoute: PeopleIndexRoute,
+  InviteTokenOneLoginRoute: InviteTokenOneLoginRoute,
+  InviteTokenOutcomeRoute: InviteTokenOutcomeRoute,
   PeopleIdEditRoute: PeopleIdEditRoute,
   PeopleIdInvitationPreviewRoute: PeopleIdInvitationPreviewRoute,
   PeopleIdInviteRoute: PeopleIdInviteRoute,
   PeopleIdRemoveRoute: PeopleIdRemoveRoute,
+  InviteTokenIndexRoute: InviteTokenIndexRoute,
   PeopleIdIndexRoute: PeopleIdIndexRoute,
 }
 export const routeTree = rootRouteImport
