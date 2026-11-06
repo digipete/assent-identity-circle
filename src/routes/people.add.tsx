@@ -16,10 +16,10 @@ function AddPerson() {
   if (!s.case) return <Navigate to="/transfer" />;
   return (
     <Main back={<BackLink to="/people" />}>
-      <h1 className="govuk-heading-l">Add a person involved in the transfer</h1>
       <PersonForm
         participants={s.participants}
         coordinatorTaken={!!s.case.coordinatorParticipantId}
+        heading="Add a person involved in the transfer"
         submitLabel="Save and continue"
         onSubmit={(input) => {
           addParticipant(input);
