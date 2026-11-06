@@ -34,3 +34,4 @@ use the editor.
 - All prototype state lives in the browser (`src/domain/store.ts`, localStorage) and pages render inside `<ClientOnly>` to avoid hydration mismatches; no backend.
 - Identity checks go through the `IdentityVerificationProvider` interface (`src/identity/provider.ts`) so the mock can be swapped for a real One Login integration without UI changes.
 - Status and progress rules live in `src/domain/logic.ts` with tests in `logic.test.ts`.
+- GitHub Pages deploy: `STATIC_EXPORT=1 BASE_PATH=/<repo>/ vite build` prerenders one "/" shell into `dist/client` (copied to 404.html in `.github/workflows/deploy-pages.yml`); all asset/link paths must use `import.meta.env.BASE_URL` so the site works from a sub-folder.
