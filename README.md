@@ -791,7 +791,7 @@ Use explanatory help where necessary.
 
 ## 11. Technical implementation
 
-Use the existing Lovable environment.
+Use the existing prototype development environment.
 
 Prefer:
 
@@ -892,17 +892,7 @@ Do not stop after building the first screen.
 
 Every important interaction must work.
 
-This project was built with [Lovable](https://lovable.dev).
-
-**Live app**: https://assent-identity-circle.lovable.app
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/aa78df67-665a-480a-b821-b4973d7ccade).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+**Live prototype**: https://digipete.github.io/assent-identity-circle/
 
 ## Development
 
