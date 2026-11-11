@@ -35,3 +35,4 @@ use the editor.
 - Identity checks go through the `IdentityVerificationProvider` interface (`src/identity/provider.ts`) so the mock can be swapped for a real One Login integration without UI changes.
 - Status and progress rules live in `src/domain/logic.ts` with tests in `logic.test.ts`.
 - GitHub Pages deploy: `STATIC_EXPORT=1 BASE_PATH=/<repo>/ vite build` prerenders one "/" shell into `dist/client` (copied to 404.html in `.github/workflows/deploy-pages.yml`); all asset/link paths must use `import.meta.env.BASE_URL` so the site works from a sub-folder.
+- Browser icons reuse the existing GOV.UK SVG at a base-aware public URL; remove obsolete icons so browsers cannot fall back to template branding.
