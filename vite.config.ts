@@ -25,5 +25,9 @@ export default defineConfig({
         // nitro/vite builds from this
         server: { entry: "server" },
       },
+  // Outside Lovable, nitro defaults to .output/public; pin it so the Pages workflow finds dist/client.
+  ...(isStatic
+    ? { nitro: { output: { dir: "dist", serverDir: "dist/server", publicDir: "dist/client" } } }
+    : {}),
   vite: isStatic ? { base } : {},
 });
